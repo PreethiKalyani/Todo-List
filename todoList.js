@@ -7,7 +7,7 @@ import {MdModeEdit} from "react-icons/md";
 function TodoList() {
     const [todoList, setTodoList] = useState([]);
     const [todo, setTodo] = useState("");
-    const [toggle, setToggle] = useState(true);
+    const [changeEdit, setChangeEdit] = useState(true);
     const [editTodo, setEditTodo] = useState(null);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ function TodoList() {
         if(!todo){
             alert("Please enter a todo");
         }
-        else if(todo && !toggle){
+        else if(todo && !changeEdit){
             setTodoList(
                 todoList.map((item) => {
                     if(item.id === editTodo){
@@ -37,7 +37,7 @@ function TodoList() {
                     return item;
                 })
             );
-            setToggle(true);
+            setChangeEdit(true);
             setTodo("");
             setEditTodo(""); 
         }
@@ -57,7 +57,7 @@ function TodoList() {
         let editItem = todoList.find((item) => {
             return item.id === i});
         console.log(editItem);
-        setToggle(false);
+        setChangeEdit(false);
         setTodo(editItem.name);
         setEditTodo(i);    
     }
@@ -66,7 +66,7 @@ function TodoList() {
         <div>
             <div>
                 <input type="text" autoFocus placeholder="Todo List" value={todo} onChange={(e) => setTodo(e.target.value)} required/>
-                {toggle ? <button className="btn" onClick={handleSubmit}>Add</button> : <button className="edit" onClick={handleSubmit}>Edit</button> }
+                {changeEdit ? <button className="btn" onClick={handleSubmit}>Add</button> : <button className="edit" onClick={handleSubmit}>Edit</button> }
             </div>
             <ul>
             { todoList.map((todo)=>{ 
